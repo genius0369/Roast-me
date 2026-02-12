@@ -9,7 +9,7 @@ Generator - 3D Neon UI Design - Sound Toggle - Persistent Leaderboard
 
 
 
-
+![App Screenshot](preview.png)
 
 
 This project runs entirely in the browser. No backend required.
@@ -138,3 +138,4 @@ logic --- making it ideal for a fun portfolio showcase.
 ------------------------------------------------------------------------
 
 Made with ❤ by Genius
+
