@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roast Battle Arena 🔥</title>
+</head>
+
+<body>
+    <link rel="stylesheet" href="style.css">
+    <div class="container">
+        <h1>🔥 Roast Battle Arena</h1>
+
+        <h3>Multiplayer Mode</h3>
+        <input type="text" id="player1" placeholder="Player 1 Name">
+        <input type="text" id="player2" placeholder="Player 2 Name">
+        <br>
+        <button onclick="battle()">Start Battle</button>
+
+        <div class="result" id="battleResult">
+            Battle results will appear here...
+        </div>
+
+        <div class="scoreboard" id="scoreboard"></div>
+
+        <hr>
+
+        <h3>🤖 AI Roast Engine</h3>
+        <input type="text" id="singleName" placeholder="Enter your name">
+        <input type="range" min="1" max="5" value="2" id="intensity">
+        <br>
+        <button onclick="aiRoast()">Generate AI Roast</button>
+        <button onclick="toggleSound()">🔊 Sound</button>
+
+        <div class="result" id="aiResult">
+            AI roast will appear here...
+        </div>
+
+        <footer>Made with ❤ by Genius</footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
