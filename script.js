@@ -1,95 +1,134 @@
-let scores = JSON.parse(localStorage.getItem("battleScores")) || {};
-let soundEnabled = true;
-const roastSound = new Audio("https://www.soundjay.com/button/sounds/button-16.mp3");
+const softRoasts = [
+    "You don’t need Google… you need common sense updates.",
+    "You’re not useless… you’re just in power saving mode.",
+    "You remind me of math… I don’t like you, don’t understand you.",
+    "You don’t trip… you do random gravity checks.",
+    "Your brain works… just on airplane mode."
+];
 
-/* AI Roast Generator (Dynamic Logic) */
-function generateSmartRoast(name, level) {
-    let traits = [
-        "brain loading at 2G speed",
-        "professional overthinker",
-        "future world record holder in procrastination",
-        "WiFi signal personality",
-        "energy saving mode human"
-    ];
+const savageRoasts = [
+    "If laziness were a sport, you'd still come second.",
+    "You don't have stupid ideas… just unlimited supply.",
+    "You're not slow… just buffering since birth.",
+    "You don't need a GPS… you’re already lost.",
+    "Your confidence is impressive for someone with zero evidence."
+];
 
-    let endings = [
-        "but still somehow confident.",
-        "and proud of it.",
-        "since version 1.0.",
-        "with unlimited updates pending.",
-        "and no patch available."
-    ];
+let currentRoast = "";
+let roastCount = localStorage.getItem("roastCount") || 0;
+document.getElementById("counter").innerText = roastCount;
 
-    let trait = traits[Math.floor(Math.random() * traits.length)];
-    let ending = endings[Math.floor(Math.random() * endings.length)];
+function generateRoast() {
+    const name = document.getElementById("nameInput").value || "You";
+    const mode = document.querySelector('input[name="mode"]:checked').value;
 
-    let spice = "";
-    if (level >= 4) spice = " Even autocorrect avoids you.";
-    if (level == 5) spice = " Scientists are still studying this phenomenon.";
+    const list = mode === "soft" ? softRoasts : savageRoasts;
+    const random = list[Math.floor(Math.random() * list.length)];
 
-    return `${name}, you are a ${trait} ${ending}${spice}`;
+    currentRoast = name + ", " + random;
+
+    document.getElementById("resultBox").innerText = currentRoast;
+
+    roastCount++;
+    localStorage.setItem("roastCount", roastCount);
+    document.getElementById("counter").innerText = roastCount;
+
+    addToHistory(currentRoast);
 }
 
-function aiRoast() {
-    const name = document.getElementById("singleName").value || "You";
-    const level = document.getElementById("intensity").value;
-    const roast = generateSmartRoast(name, level);
-
-    document.getElementById("aiResult").innerText = roast;
-
-    if (soundEnabled) roastSound.play();
+function saveRoast() {
+    if (!currentRoast) return;
+    localStorage.setItem("bestRoast", currentRoast);
+    alert("Saved as Best Roast!");
 }
 
-/* Multiplayer Battle Mode */
-function battle() {
-    const p1 = document.getElementById("player1").value || "Player1";
-    const p2 = document.getElementById("player2").value || "Player2";
-
-    const roast1 = generateSmartRoast(p1, 3);
-    const roast2 = generateSmartRoast(p2, 3);
-
-    const score1 = Math.floor(Math.random() * 100);
-    const score2 = Math.floor(Math.random() * 100);
-
-    if (!scores[p1]) scores[p1] = 0;
-    if (!scores[p2]) scores[p2] = 0;
-
-    let winner;
-    if (score1 > score2) {
-        scores[p1]++;
-        winner = p1 + " wins!";
-    } else if (score2 > score1) {
-        scores[p2]++;
-        winner = p2 + " wins!";
-    } else {
-        winner = "It's a tie!";
-    }
-
-    localStorage.setItem("battleScores", JSON.stringify(scores));
-
-    document.getElementById("battleResult").innerHTML =
-        `<b>${p1}:</b> ${roast1} (Score: ${score1})<br><br>
-         <b>${p2}:</b> ${roast2} (Score: ${score2})<br><br>
-         <h3>${winner}</h3>`;
-
-    updateScoreboard();
-
-    if (soundEnabled) roastSound.play();
+function copyRoast() {
+    if (!currentRoast) return;
+    navigator.clipboard.writeText(currentRoast);
+    alert("Copied to clipboard!");
 }
 
-function updateScoreboard() {
-    let board = "<h4>🏆 Leaderboard</h4>";
-    Object.entries(scores)
-        .sort((a, b) => b[1] - a[1])
-        .forEach(([name, score]) => {
-            board += `${name} — ${score} wins<br>`;
+function shareRoast() {
+    if (!currentRoast) return;
+
+    if (navigator.share) {
+        navigator.share({
+            title: "My Roast",
+            text: currentRoast
         });
-
-    document.getElementById("scoreboard").innerHTML = board;
+    } else {
+        alert("Sharing not supported on this browser.");
+    }
 }
 
-function toggleSound() {
-    soundEnabled = !soundEnabled;
+function addToHistory(text) {
+    const box = document.getElementById("historyBox");
+    const div = document.createElement("div");
+    div.innerText = text;
+    box.prepend(div);
 }
 
-updateScoreboard();
+
+function startSelected() {
+
+  let checked = document.querySelectorAll("input[type=checkbox]:checked");
+
+  if (checked.length === 0) return;
+
+
+
+  queue = [];
+
+  checked.forEach(cb => {
+
+    subjects[cb.value].attempted++;
+
+    queue.push(cb.value);
+
+  });
+
+
+
+  saveData();
+
+  renderSubjects();
+
+  runNext();
+
+}
+
+
+
+function runNext() {
+
+  if (queue.length === 0) {
+
+    playAlarm();
+
+    alert("All selected subjects completed!");
+
+    return;
+
+  }
+
+
+
+  let index = queue.shift();
+
+  let totalTime = subjects[index].duration * 60;
+
+  let time = totalTime;
+
+
+
+  currentInterval = setInterval(() => {
+
+    let min = Math.floor(time / 60);
+
+    let sec = time % 60;
+
+
+
+    document.getElementById("timer").innerText =
+
+      `${subjects[index].name} - ${min}:${sec < 10 ? "0" : ""}${sec}
