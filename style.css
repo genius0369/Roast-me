@@ -1,36 +1,46 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: radial-gradient(circle at center, #0a0f2c, #050b1e);
+    background: #050b1e;
     color: #e0eaff;
     text-align: center;
-    overflow-x: hidden;
 }
 
-/* 3D Neon Card */
+.mode input[type="radio"] {
+    accent-color: #1e90ff;
+}
+
+.mode {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.mode label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
 .container {
-    max-width: 600px;
+    max-width: 500px;
     margin: 50px auto;
-    padding: 30px;
-    background: rgba(10, 20, 60, 0.9);
-    border-radius: 15px;
-    box-shadow: 0 0 30px #1e90ff, 0 0 60px #1e90ff;
-    transform: perspective(1000px) rotateX(3deg);
-    transition: 0.4s;
-}
-
-.container:hover {
-    transform: perspective(1000px) rotateX(0deg) scale(1.02);
+    padding: 25px;
+    background: #0b153a;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #1e90ff;
 }
 
 h1 {
     color: #4da6ff;
-    text-shadow: 0 0 15px #1e90ff;
 }
 
 input {
+    width: 80%;
     padding: 10px;
-    margin: 8px;
+    margin: 10px 0;
     background: #02071a;
     border: 1px solid #1e90ff;
     color: white;
@@ -40,33 +50,60 @@ input {
 button {
     background: #1e90ff;
     border: none;
-    padding: 8px 12px;
+    padding: 10px 15px;
     margin: 5px;
     color: white;
     border-radius: 6px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
     background: #63b3ff;
 }
 
-.result {
-    margin-top: 15px;
-    padding: 15px;
-    background: #02071a;
-    border-left: 4px solid #ff3c00;
-    border-radius: 8px;
-    min-height: 60px;
-    box-shadow: 0 0 15px #ff3c00;
+.mode {
+    margin: 10px 0;
 }
 
-.scoreboard {
-    margin-top: 15px;
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+    min-height: 60px;
+    padding: 10px;
+    background: #02071a;
+    border-left: 4px solid #1e90ff;
+    border-radius: 6px;
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px #1e90ff;
+    }
+
+    to {
+        box-shadow: 0 0 15px #7f00ff;
+    }
+}
+
+.history {
+    margin-top: 20px;
+    text-align: left;
+    font-size: 14px;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.history div {
+    background: #02071a;
+    margin: 5px 0;
+    padding: 6px;
+    border-radius: 5px;
 }
 
 footer {
-    margin-top: 20px;
+    margin-top: 25px;
     font-size: 14px;
     color: #7fbfff;
 }
