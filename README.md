@@ -10,8 +10,7 @@ A fun and interactive web app that generates random roasts based on selected mod
   - **Soft** – Light and funny roasts
   - **Savage** – Brutal and savage roasts
 - 🎲 Random roast generator
-- 📊 Roast counter (saved in LocalStorage)
-- 💾 Save best roast
+- 📊 Roast counter
 - 📋 Copy roast to clipboard
 - 📤 Share roast (if supported by browser)
 - 🕘 Roast history display
@@ -59,3 +58,4 @@ A fun and interactive web app that generates random roasts based on selected mod
 ## 👨‍💻 Author
 
 Made with ❤ by **Genius**
+
